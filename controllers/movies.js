@@ -4,8 +4,9 @@ const ValidationError = require('../errors/ValidationError');
 const ForbiddenError = require('../errors/ForbiddenError');
 
 const getMovies = (req, res, next) => {
-  Movie.find({})
-    .then((cards) => res.status(200).send(cards))
+  const owner = req.user._id;
+  Movie.find({ owner })
+    .then((movies) => res.status(200).send(movies))
     .catch(next);
 };
 
